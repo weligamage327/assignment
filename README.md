@@ -1,5 +1,3 @@
-# Getting Started with Create React App
-
 First, install the node modues with yarn:
 
 ### `yarn`
@@ -20,5 +18,3 @@ You will also see any lint errors in the console.
 
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.

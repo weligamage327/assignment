@@ -1,6 +1,5 @@
 // Base styles for Dropdown items
-
-$primary-color: #1d50cf;
+@import "../../styles/_variables.scss";
 
 .item {
     align-items: center;
@@ -20,12 +19,12 @@ $primary-color: #1d50cf;
     }
   
     &:hover {
-      background-color: #f5f5f5;
+      background-color: $hover-grey-color;
     }
   
     &.selected,
     &.selected:hover {
-      background-color: #f5f5ff;
+      background-color: $light-blue-color;
     }
   }
   
@@ -33,9 +32,13 @@ $primary-color: #1d50cf;
     margin-right: 8px;
     margin-left: 5px;
   }
-  
-  .selectedIcon,
+
+  .selectedIcon {
+    color: $primary-color;
+  }
+
   .selected .itemText {
     color: $primary-color;
+    font-weight: 500;
   }
   
