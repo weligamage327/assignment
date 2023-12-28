@@ -1,0 +1,41 @@
+// Base styles for Dropdown items
+
+$primary-color: #1d50cf;
+
+.item {
+    align-items: center;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 8px;
+    margin-bottom: 5px;
+  
+    &:first-of-type {
+      margin-top: 0;
+    }
+  
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  
+    &:hover {
+      background-color: #f5f5f5;
+    }
+  
+    &.selected,
+    &.selected:hover {
+      background-color: #f5f5ff;
+    }
+  }
+  
+  .itemText {
+    margin-right: 8px;
+    margin-left: 5px;
+  }
+  
+  .selectedIcon,
+  .selected .itemText {
+    color: $primary-color;
+  }
+  
