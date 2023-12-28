@@ -1,0 +1,53 @@
+// Base styles for input container
+
+@import "../../_variables.scss";
+
+.container {
+  align-items: center;
+  border: 1px solid $border-color;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  height: 45px;
+  margin-bottom: 5px;
+  margin-top: 25px;
+  padding: 0 5px 0 10px;
+  width: 265px;
+
+  &:focus-within,
+  &.inputNotEmpty { 
+    border-color: $primary-color;
+    box-shadow: 0 0 5px $border-color;
+  }
+
+  // Inner elements
+  .toggleIconWrapper {
+    align-items: center;
+    background-color: transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    margin-left: 8px;
+    padding: 5px 0;
+    width: 40px;
+
+    .toggleIcon {
+      align-self: center;
+      color: #888;
+      display: flex;
+      font-size: 20px;
+      justify-content: center;
+    }
+  }
+
+  input[type="text"] {
+    border: none;
+    border-radius: 4px;
+    font-size: 1em;
+    outline: none;
+    padding: 8px;
+    width: calc(100% - 60px);
+  }
+}
