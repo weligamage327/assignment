@@ -1,6 +1,7 @@
 import React, { useState, useEffect, ChangeEvent, KeyboardEvent } from "react";
 import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
 import styles from "./InputController.module.scss";
+import { DropdownItem } from "../../types/DropdownItemTypes";
 
 interface InputControllerProps {
   value: string;
@@ -8,6 +9,7 @@ interface InputControllerProps {
   onKeyDown: (e: KeyboardEvent<HTMLInputElement>) => void;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   open: boolean;
+  selectedOptions: DropdownItem[];
 }
 
 const InputController: React.FC<InputControllerProps> = ({
@@ -16,35 +18,39 @@ const InputController: React.FC<InputControllerProps> = ({
   onKeyDown,
   setOpen,
   open,
+  selectedOptions,
 }) => {
-  // State to determine if the input is not empty
-  const [isInputNotEmpty, setIsInputNotEmpty] = useState<boolean>(false);
+  const [inputValue, setInputValue] = useState<string>(value);
+
+  useEffect(() => {
+    // Update input value when selected options change
+    const selectedValues = selectedOptions
+      .filter((item) => item.selected)
+      .map((item) => item.value);
+    setInputValue(selectedValues.join(", "));
+  }, [selectedOptions]);
+
+  // Handle input focus to set dropdown visibility
+  const handleInputFocus = () => {
+    setOpen(true);
+  };
 
   // Handle input change event
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
     onChange(e);
   };
 
-  // Update isInputNotEmpty based on the input value
-  useEffect(() => {
-    setIsInputNotEmpty(value.trim() !== "");
-  }, [value]);
-
   return (
-    <div
-      className={`${styles.container} ${
-        isInputNotEmpty ? styles.inputNotEmpty : ""
-      }`}
-    >
-      {/* Input field */}
+    <div className={`${styles.container}`}>
       <input
         type="text"
-        value={value}
+        value={inputValue}
         onChange={handleInputChange}
         onKeyDown={onKeyDown}
         placeholder="Type here..."
+        onFocus={handleInputFocus}
       />
-      {/* Toggle icon for controlling the dropdown visibility */}
       <div
         className={styles.toggleIconWrapper}
         onClick={() => setOpen((open) => !open)}

@@ -1,15 +1,10 @@
-import React, { useState, useRef, useEffect, KeyboardEvent } from "react";
+import React, { useState, useRef, KeyboardEvent } from "react";
 import { initialOptions } from "../../data/optionsData";
 import styles from "./MultiSelectDropdown.module.scss";
 import DropdownItems from "../dropdownitems/DropdownItems";
 import InputController from "../inputcontroller/InputController";
-
-interface DropdownItem {
-  value: string;
-  categoryIcon: React.ReactNode;
-  description: string;
-  selected: boolean;
-}
+import { useOutsideClick } from "../../hooks/useOutsideClick";
+import { DropdownItem } from "../../types/DropdownItemTypes";
 
 function MultiSelectDropdown() {
   const [selectedOptions, setSelectedOptions] =
@@ -18,26 +13,13 @@ function MultiSelectDropdown() {
   const [open, setOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    // Handle clicks outside the dropdown to close it
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setOpen(false);
-      }
-    };
+  // Close the dropdown when clicking outside the dropdown area
+  useOutsideClick(dropdownRef, (event) => {
+    setOpen(false);
+  });
 
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [dropdownRef]);
-
+  // Function to toggle the selected state of the clicked item
   const handleItemClick = (clickedItem: DropdownItem) => {
-    // Toggle the selected state of the clicked item
     const updatedOptions = selectedOptions.map((item) =>
       item.value === clickedItem.value
         ? { ...item, selected: !item.selected }
@@ -46,8 +28,8 @@ function MultiSelectDropdown() {
     setSelectedOptions(updatedOptions);
   };
 
+  // Function to add a new item when Enter is pressed and the newOption is not empty
   const handleEnterKeyPress = (event: KeyboardEvent<HTMLInputElement>) => {
-    // Add a new item when Enter is pressed and newOption is not empty - validating for non empty values only
     if (event.key === "Enter" && newOption.trim() !== "") {
       const newItem: DropdownItem = {
         value: newOption,
@@ -63,13 +45,13 @@ function MultiSelectDropdown() {
 
   return (
     <div className={styles.dropdown} ref={dropdownRef}>
-      <h1>Assignment - Dropdown Menu</h1>
       <InputController
         value={newOption}
         onChange={(e) => setNewOption(e.target.value)}
         onKeyDown={handleEnterKeyPress}
         setOpen={setOpen}
         open={open}
+        selectedOptions={selectedOptions}
       />
       {open && (
         <div className={styles.dropdownContent}>

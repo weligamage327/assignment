@@ -1,6 +1,5 @@
 // Base styles for input container
-
-@import "../../_variables.scss";
+@import "../../styles/_variables.scss";
 
 .container {
   align-items: center;
@@ -10,14 +9,15 @@
   display: flex;
   height: 45px;
   margin-bottom: 5px;
-  margin-top: 25px;
   padding: 0 5px 0 10px;
   width: 265px;
 
   &:focus-within,
   &.inputNotEmpty { 
-    border-color: $primary-color;
-    box-shadow: 0 0 5px $border-color;
+    $lightPrimaryColor: lighten($primary-color, 45%); 
+    $midPrimaryColor: lighten($primary-color, 20%); 
+    border: 1px solid $midPrimaryColor;
+    outline: 2px solid $lightPrimaryColor; 
   }
 
   // Inner elements
@@ -35,7 +35,7 @@
 
     .toggleIcon {
       align-self: center;
-      color: #888;
+      color: $icon-grey-color;
       display: flex;
       font-size: 20px;
       justify-content: center;

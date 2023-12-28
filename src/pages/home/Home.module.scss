@@ -1,6 +1,11 @@
 .container {
     align-items: center;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    margin-top: 50px;
+    margin-top: 40px;
+}
+
+h1 {
+    margin-bottom: 50px; 
 }

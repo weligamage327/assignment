@@ -1,14 +1,7 @@
 import React from "react";
 import { Check } from "@mui/icons-material";
 import styles from "./DropdownItems.module.scss";
-
-interface DropdownItem {
-  selected: boolean;
-  value: string;
-  description: string;
-  categoryIcon: React.ReactNode;
-}
-
+import { DropdownItem } from "../../types/DropdownItemTypes";
 interface DropdownItemsProps {
   selectedOptions: DropdownItem[];
   handleItemClick: (item: DropdownItem) => void;
@@ -47,7 +40,9 @@ function DropdownItems({
             </span>
             <span>{item.categoryIcon}</span>
           </div>
-          {item.selected && <Check className={styles.selectedIcon} />}
+          {item.selected && (
+            <Check className={styles.selectedIcon} fontSize="small" />
+          )}
         </div>
       ))}
     </>
